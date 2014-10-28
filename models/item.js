@@ -9,7 +9,6 @@ module.exports = function(db){
 			var itemsData = yield db.query("SELECT * FROM items WHERE id = ?", [id]);
 			var items = itemsData[0] || [];
 			if(items.length!=1){
-				console.log(items, items.length);
 				throw new Error("Invalid item id");
 			}
 			else{
@@ -17,8 +16,8 @@ module.exports = function(db){
 			}
 		},
 		readList: function* (itemCount){
-			// TODO: add ability to set number and start point
-			var items = yield db.query("SELECT * FROM items ORDER BY votes LIMIT ?", [parseInt(itemCount)]);
+			// TODO: add ability to set start point
+			var items = yield db.query("SELECT * FROM items ORDER BY votes DESC LIMIT ?", [parseInt(itemCount)]);
 			return items[0];
 		},
 		update:function *(id,data){
