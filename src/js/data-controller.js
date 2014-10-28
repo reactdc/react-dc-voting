@@ -1,18 +1,13 @@
 xhr = require("xhr");
 
 window.dataController = module.exports = {
-	getList: function(startID, itemCount, cb){
+	getList: function(itemCount, cb){
 		var opts = {
 			method: "GET",
 			url: "/items"
 		};
-		if(startID){
-			opts.url += "?startID="+startID;
-		}
 		if(itemCount){
-			startID ?
-				opts.url += "&itemCount=" + itemCount :
-				opts.url += "?itemCount=" + itemCount;
+			opts.url += "?itemCount=" + itemCount;
 		}
 		var errorMessage = "There was an error reading the list of votes.";
 		this._xhr(opts, errorMessage, cb);
